@@ -15,12 +15,27 @@
 /*                            HÀM CỦA I2C SLAVE                              */
 /* ------------------------------------------------------------------------- */
 
-void I2C_Slave_Motor_Driver::I2C_setup() {
-  Wire.begin(64); // Khởi tạo I2C bus
-  Wire.onReceive(receiveEvent); // register event
+// Khai báo instance
+I2C_Slave_Motor_Driver* I2C_Slave_Motor_Driver::instance = nullptr;
+
+I2C_Slave_Motor_Driver::I2C_Slave_Motor_Driver() {
+    instance = this;
 }
 
-void I2C_Slave_Motor_Driver::receiveEvent(uint8_t tempCount) {
+void I2C_Slave_Motor_Driver::I2C_setup() {
+  Wire.begin(64); // Khởi tạo I2C bus
+  Wire.onReceive(I2C_Slave_Motor_Driver::receiveEvent); // register event
+}
+
+void I2C_Slave_Motor_Driver::receiveEvent(int tempCount)
+{
+    if(instance != nullptr)
+    {
+        instance->receiveEventInternal(tempCount);
+    }
+}
+
+void I2C_Slave_Motor_Driver::receiveEventInternal(int tempCount) {
   Serial.println("count: " + String(tempCount));
   if (tempCount == 6) {
     motorData._addressId = Wire.read();   // Byte giá trị địa chỉ của slave
@@ -45,7 +60,8 @@ void I2C_Slave_Motor_Driver::receiveEvent(uint8_t tempCount) {
 
   } else {
     Serial.println("Chi nhan duoc: " + String(tempCount) + " byte" + "(yeu cau 6 byte).");
-    return false;
+    // return false;
+    return; 
   }
 }
 
@@ -79,6 +95,15 @@ void I2C_Slave_Motor_Driver::check_crc() {
                    motorData._index +
                    motorData._pwm +
                    motorData._dir;
+
+  if (calculated_crc != _crc) {
+    Serial.print("Loi CRC! Du lieu khong hop le. CRC nhan: ");
+    Serial.print(_crc, HEX);
+    Serial.print(", CRC tinh: ");
+    Serial.println(calculated_crc, HEX);
+    // return false;
+    return;
+  }
 }
 
 void I2C_Slave_Motor_Driver::printData() {

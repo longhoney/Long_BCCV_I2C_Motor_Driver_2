@@ -32,9 +32,9 @@ enum{
 /*                                   CLASS                                   */
 /* ------------------------------------------------------------------------- */
 
-class Makerlabvn_SimpleMotor: public kxnTask
+class Makerlabvn_SimpleMotor_LONG: public kxnTask
 {
-private:
+protected:
   uint8_t type;
   uint8_t i2cAddress;
   int kxnSpeedA, kxnSpeedB;
@@ -42,19 +42,19 @@ private:
   Makerlabvn_I2C_Motor_Driver *i2cMotorDriver;
 public:
   /* ------------------------------- HÀM TẠO ------------------------------- */
-  Makerlabvn_SimpleMotor(){}
+  Makerlabvn_SimpleMotor_LONG(){}
   
-  Makerlabvn_SimpleMotor(
+  Makerlabvn_SimpleMotor_LONG(
       uint8_t pinIn1, uint8_t pinIn2,
       uint8_t pinIn3, uint8_t pinIn4
   );
 
-  Makerlabvn_SimpleMotor(
+  Makerlabvn_SimpleMotor_LONG(
       uint8_t pinEnA, uint8_t pinIn1, uint8_t pinIn2,
       uint8_t pinIn3, uint8_t pinIn4, uint8_t pinEnB
   );
 
-  Makerlabvn_SimpleMotor(
+  Makerlabvn_SimpleMotor_LONG(
     uint8_t paI2cAddress
   );
 
@@ -95,7 +95,7 @@ public:
 
   void loop();
 
-private:
+protected:
   /* ----------------------- (BIẾN) CẤU HÌNH CÁC PIN ----------------------- */
   uint8_t _pinIn1;
   uint8_t _pinIn2;

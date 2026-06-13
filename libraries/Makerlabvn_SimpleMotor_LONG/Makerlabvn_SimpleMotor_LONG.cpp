@@ -8,7 +8,7 @@
 /*                                  HÀM TẠO                                  */
 /* ------------------------------------------------------------------------- */
 
-Makerlabvn_SimpleMotor::Makerlabvn_SimpleMotor(
+Makerlabvn_SimpleMotor_LONG::Makerlabvn_SimpleMotor_LONG(
   uint8_t paI2cAddress
 )
 {
@@ -16,21 +16,21 @@ Makerlabvn_SimpleMotor::Makerlabvn_SimpleMotor(
 
 }
 
-Makerlabvn_SimpleMotor::Makerlabvn_SimpleMotor(
+Makerlabvn_SimpleMotor_LONG::Makerlabvn_SimpleMotor_LONG(
     uint8_t pinIn1, uint8_t pinIn2,
     uint8_t pinIn3, uint8_t pinIn4)
 {
   setup(pinIn1, pinIn2, pinIn3, pinIn4);
 }
 
-Makerlabvn_SimpleMotor::Makerlabvn_SimpleMotor(
+Makerlabvn_SimpleMotor_LONG::Makerlabvn_SimpleMotor_LONG(
       uint8_t pinEnA, uint8_t pinIn1, uint8_t pinIn2,
       uint8_t pinIn3, uint8_t pinIn4, uint8_t pinEnB)
 {
   setup(pinEnA, pinIn1, pinIn2, pinIn3, pinIn4, pinEnB);
 }
 
-void Makerlabvn_SimpleMotor::setup(uint8_t paI2cAddress)
+void Makerlabvn_SimpleMotor_LONG::setup(uint8_t paI2cAddress)
 {
   this->type = Makerlabvn_SimpleMotor_Type_I2C;
   if(i2cMotorDriver != NULL){
@@ -40,7 +40,7 @@ void Makerlabvn_SimpleMotor::setup(uint8_t paI2cAddress)
   i2cMotorDriver->begin();
 }
 
-void Makerlabvn_SimpleMotor::setup(
+void Makerlabvn_SimpleMotor_LONG::setup(
   uint8_t pinIn1, uint8_t pinIn2,
   uint8_t pinIn3, uint8_t pinIn4
 )
@@ -62,7 +62,7 @@ void Makerlabvn_SimpleMotor::setup(
   digitalWrite(_pinIn4, LOW);
 }
   
-void Makerlabvn_SimpleMotor::setup(
+void Makerlabvn_SimpleMotor_LONG::setup(
   uint8_t pinEnA, uint8_t pinIn1, uint8_t pinIn2,
   uint8_t pinIn3, uint8_t pinIn4, uint8_t pinEnB
 )
@@ -103,7 +103,7 @@ void Makerlabvn_SimpleMotor::setup(
  * - speed : tốc độ động cơ, đơn vị (%)
  *           phạm vi giá trị từ 0% đến 100%
  */
-void Makerlabvn_SimpleMotor::motorA_fw(int speed)
+void Makerlabvn_SimpleMotor_LONG::motorA_fw(int speed)
 {
   // Xử lý giá trị tốc độ nhận được
   speed = calculate_speed(speed);
@@ -141,7 +141,7 @@ void Makerlabvn_SimpleMotor::motorA_fw(int speed)
  * - speed : tốc độ động cơ, đơn vị (%)
  *           phạm vi giá trị từ 0% đến 100%
  */
-void Makerlabvn_SimpleMotor::motorB_fw(int speed)
+void Makerlabvn_SimpleMotor_LONG::motorB_fw(int speed)
 {
   // Xử lý giá trị tốc độ nhận được
   speed = calculate_speed(speed);
@@ -178,7 +178,7 @@ void Makerlabvn_SimpleMotor::motorB_fw(int speed)
  * - speed : tốc độ động cơ, đơn vị (%)
  *           phạm vi giá trị từ 0% đến 100%
  */
-void Makerlabvn_SimpleMotor::motorA_bw(int speed)
+void Makerlabvn_SimpleMotor_LONG::motorA_bw(int speed)
 {
   // Xử lý giá trị tốc độ nhận được
   speed = calculate_speed(speed);
@@ -212,7 +212,7 @@ void Makerlabvn_SimpleMotor::motorA_bw(int speed)
  * - speed : tốc độ động cơ, đơn vị (%)
  *           phạm vi giá trị từ 0% đến 100%
  */
-void Makerlabvn_SimpleMotor::motorB_bw(int speed)
+void Makerlabvn_SimpleMotor_LONG::motorB_bw(int speed)
 {
   // Xử lý giá trị tốc độ nhận được
   speed = calculate_speed(speed);
@@ -245,7 +245,7 @@ void Makerlabvn_SimpleMotor::motorB_bw(int speed)
 /**
  * Điều khiển motor kênh A dừng lại
  */
-void Makerlabvn_SimpleMotor::motorA_stop()
+void Makerlabvn_SimpleMotor_LONG::motorA_stop()
 {
   // Điều khiển Motor bên TRÁI dừng lại
   motorA_bw(0);
@@ -254,7 +254,7 @@ void Makerlabvn_SimpleMotor::motorA_stop()
 /**
  * Điều khiển motor kênh B dừng lại
  */
-void Makerlabvn_SimpleMotor::motorB_stop()
+void Makerlabvn_SimpleMotor_LONG::motorB_stop()
 {
   // Điều khiển Motor bên PHẢI dừng lại
   motorB_bw(0);
@@ -273,7 +273,7 @@ void Makerlabvn_SimpleMotor::motorB_stop()
  * - speedB : tốc độ động cơ kênh B, bên PHẢI của xe
  *            phạm vi giá trị từ 0% đến 100%
  */
-void Makerlabvn_SimpleMotor::car_fw(int speedA, int speedB)
+void Makerlabvn_SimpleMotor_LONG::car_fw(int speedA, int speedB)
 {
   // Tắt cal_speed trong hàm car_fw vì tròng hàm motorA_fw() đã có rồi
     // Xử lý giá trị tốc độ nhận được
@@ -293,7 +293,7 @@ void Makerlabvn_SimpleMotor::car_fw(int speedA, int speedB)
  * - speedB : tốc độ động cơ kênh B, bên PHẢI của xe
  *            phạm vi giá trị từ 0% đến 100%
  */
-void Makerlabvn_SimpleMotor::car_bw(int speedA, int speedB)
+void Makerlabvn_SimpleMotor_LONG::car_bw(int speedA, int speedB)
 {
   // Tắt cal_speed trong hàm car_bw vì tròng hàm motorA_fw() đã có rồi
     // Xử lý giá trị tốc độ nhận được
@@ -304,7 +304,7 @@ void Makerlabvn_SimpleMotor::car_bw(int speedA, int speedB)
   motorB_bw(speedB); // Điều khiển motor kênh B quay ngược
 }
 
-void Makerlabvn_SimpleMotor::car_run(int speedA, int speedB){
+void Makerlabvn_SimpleMotor_LONG::car_run(int speedA, int speedB){
   if(speedA>0){
     motorA_fw(speedA);
   }else{
@@ -328,7 +328,7 @@ void Makerlabvn_SimpleMotor::car_run(int speedA, int speedB){
  * - speed : tốc độ động cơ, đơn vị (%)
  *           phạm vi giá trị từ 0% đến 100%
  */
-void Makerlabvn_SimpleMotor::car_rotateL(int speed)
+void Makerlabvn_SimpleMotor_LONG::car_rotateL(int speed)
 {
   // Xử lý giá trị tốc độ nhận được
   speed = calculate_speed(speed);
@@ -343,7 +343,7 @@ void Makerlabvn_SimpleMotor::car_rotateL(int speed)
  * - speed : tốc độ động cơ, đơn vị (%)
  *           phạm vi giá trị từ 0% đến 100%
  */
-void Makerlabvn_SimpleMotor::car_rotateR(int speed)
+void Makerlabvn_SimpleMotor_LONG::car_rotateR(int speed)
 {
   // Xử lý giá trị tốc độ nhận được
   speed = calculate_speed(speed);
@@ -357,7 +357,7 @@ void Makerlabvn_SimpleMotor::car_rotateR(int speed)
 /**
  * Điều khiển xe dừng lại
  */
-void Makerlabvn_SimpleMotor::car_stop()
+void Makerlabvn_SimpleMotor_LONG::car_stop()
 {
   motorA_stop(); // Điều khiển motor kênh A dừng lại
   motorB_stop(); // Điều khiển motor kênh B dừng lại
@@ -371,7 +371,7 @@ void Makerlabvn_SimpleMotor::car_stop()
  * Đảm bảo giá trị tốc độ (%) nhận được trong khoảng 0% đến 100%
  * Đồng thời chuyển đổi tốc độ (%) sang thang (PWM) tương ứng
  */
-int Makerlabvn_SimpleMotor::calculate_speed(int speed)
+int Makerlabvn_SimpleMotor_LONG::calculate_speed(int speed)
 {
   // Đảm bảo giá trị tốc độ (%) nằm trong khoảng cho phép
   speed = constrain(speed, 0, 100);
@@ -382,7 +382,7 @@ int Makerlabvn_SimpleMotor::calculate_speed(int speed)
   return speed;
 }
 
-void Makerlabvn_SimpleMotor::loop(){
+void Makerlabvn_SimpleMotor_LONG::loop(){
   switch (getState())
   {
   case Makerlabvn_SimpleMotor_State_moveFrom0:
